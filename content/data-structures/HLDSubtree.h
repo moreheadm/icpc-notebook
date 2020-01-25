@@ -1,21 +1,23 @@
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-using namespace std;
- 
+/**
+ * Author: Nalin Bhardwaj
+ * Date: 2020-01-25
+ * License: CC0
+ * Source: Folklore/self
+ * Description: HLD implementation that also supports subtree updates/queries.
+ * Time: Path query is $O(\log^2 n)$
+ */
 typedef long long int lli;
- 
+
 const lli maxn = lli(1e5)+5, maxlog = 17, inf = lli(1e17)+5;
- 
+
 lli n, totchain = 0, curst = 0, inchain[maxn], head[maxn], inst[maxn], H[maxn], T[maxn][maxlog+1], lz[4*maxn], start[maxn], en[maxn], sz[maxn], lookup[maxn], ptr[maxn];
 vector<lli> graph[maxn];
 vector<lli> girls[maxn];
 pair<lli, lli> st[4*maxn];
- 
+
 inline lli left(lli node) { return (node<<1); }
 inline lli right(lli node) { return (node<<1)+1; }
- 
+
 void build(lli node, lli L, lli R)
 {
 	if(L == R)
@@ -34,7 +36,7 @@ void build(lli node, lli L, lli R)
 		st[node] = min(st[left(node)], st[right(node)]);
 	}
 }
- 
+
 void shift(lli node, lli L, lli R)
 {
 	if(lz[node] && L != R)
@@ -46,7 +48,7 @@ void shift(lli node, lli L, lli R)
 	}
 	lz[node] = 0;
 }
- 
+
 void upd(lli node, lli L, lli R, lli a, lli b, lli v)
 {
 	if(a > R || b < L) return;
@@ -63,7 +65,7 @@ void upd(lli node, lli L, lli R, lli a, lli b, lli v)
 		st[node] = min(st[left(node)], st[right(node)]);
 	}
 }
- 
+
 pair<lli, lli> qry(lli node, lli L, lli R, lli a, lli b)
 {
 	if(a > R || b < L) return {inf, -1};
@@ -77,7 +79,7 @@ pair<lli, lli> qry(lli node, lli L, lli R, lli a, lli b)
 		return min(qry(left(node), L, (L+R)/2, a, b), qry(right(node), (L+R)/2+1, R, a, b));
 	}
 }
- 
+
 void init()
 {
 	for(lli j = 1;j <= maxlog;j++)
@@ -88,7 +90,7 @@ void init()
 		}
 	}
 }
- 
+
 lli LCA(lli x, lli y)
 {
 	if(H[x] > H[y]) swap(x, y);
@@ -103,7 +105,8 @@ lli LCA(lli x, lli y)
 	}
 	return T[x][0];
 }
- 
+
+// v MUST be an ancestor of u
 pair<lli, lli> pathqry(lli node, lli anc)
 {
 	lli cur = node;
@@ -116,7 +119,7 @@ pair<lli, lli> pathqry(lli node, lli anc)
 	res = min(res, qry(1, 0, curst-1, inst[anc], inst[cur]));
 	return res;
 }
- 
+
 void dfs0(lli node, lli par, lli ht)
 {
 	sz[node] = 1; H[node] = ht; T[node][0] = par;
@@ -129,7 +132,7 @@ void dfs0(lli node, lli par, lli ht)
 		}
 	}
 }
- 
+
 void dfs1(lli node, lli par, lli chain)
 {
 	inchain[node] = chain;
@@ -137,7 +140,7 @@ void dfs1(lli node, lli par, lli chain)
 	inst[node] = curst++;
 	lookup[curst-1] = node;
 	start[node] = curst-1;
- 
+
 	pair<lli, lli> largest = {-1, -1};
 	for(auto it: graph[node])
 	{
@@ -153,76 +156,20 @@ void dfs1(lli node, lli par, lli chain)
 	}
 	en[node] = curst-1;
 }
- 
-int main(void)
+
+// Add k to subtree(node)
+upd(1, 0, n-1, start[node], en[node], k);
+
+// initialisation before input
+for(lli i = 0;i < maxn;i++) head[i] = -1;
+for(lli i = 0;i < maxn;i++)
 {
-	lli m, q, t, u, v, k, c;
-	scanf("%lld%lld%lld", &n, &m, &q);
-	for(lli i = 0;i < maxn;i++) head[i] = -1;
-	for(lli i = 0;i < maxn;i++)
-	{
-		for(lli j = 0;j <= maxlog;j++) T[i][j] = -1;
-	}
-	for(lli i = 1;i < n;i++)
-	{
-		scanf("%lld%lld", &u, &v);
-		u--, v--;
-		graph[u].push_back(v);
-		graph[v].push_back(u);
-	}
- 
-	for(lli i = 1;i <= m;i++)
-	{
-		scanf("%lld", &c);
-		c--;
-		girls[c].push_back(i);
-	}
- 
-	dfs0(0, -1, 0);
-	init();
-	totchain = 1;
-	dfs1(0, -1, 0);
- 
-	for(lli i = 0;i < n;i++)
-	{
-		sort(girls[i].begin(), girls[i].end());
-	}
-	
-	build(1, 0, curst-1);
-	while(q--)
-	{
-		scanf("%lld", &t);
-		t--;
-		if(t)
-		{
-			scanf("%lld%lld", &v, &k);
-			v--;
-			upd(1, 0, n-1, start[v], en[v], k);
-		}
-		else
-		{
-			scanf("%lld%lld%lld", &u, &v, &k);
-			u--, v--;
-			lli lc = LCA(u, v);
-			vector<lli> ans;
-			while(k--)
-			{
-				pair<lli, lli> res = min(pathqry(u, lc), pathqry(v, lc));
-				if(res.first >= inf || res.second == -1) break;
-				else
-				{
-					ans.push_back(girls[res.second][ptr[res.second]]);
-					if(ptr[res.second] < lli(girls[res.second].size())-1)
-					{
-						upd(1, 0, curst-1, start[res.second], start[res.second], girls[res.second][ptr[res.second]+1]-girls[res.second][ptr[res.second]]);
-					}
-					else upd(1, 0, curst-1, start[res.second], start[res.second], inf-girls[res.second][ptr[res.second]]);
-					ptr[res.second]++;
-				}
-			}
-			printf("%lld ", lli(ans.size()));
-			for(auto it: ans) printf("%lld ", it);
-			printf("\n");
-		}
-	}
+	for(lli j = 0;j <= maxlog;j++) T[i][j] = -1;
 }
+
+// initialisation after input
+dfs0(0, -1, 0);
+init();
+totchain = 1;
+dfs1(0, -1, 0);
+build(1, 0, curst-1);

@@ -1,11 +1,11 @@
-// Treap with lazy propogation and climbing for reverse lookup.
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <ctime>
-#include <cstdlib>
-#include <cassert>
-using namespace std;
+/**
+ * Author: Nalin Bhardwaj
+ * Date: 2020-01-25
+ * License: CC0
+ * Source: Folklore/self
+ * Description: Treap with lazy propogation and climbing for reverse lookup.
+ * Time: Split and merge are $O(\log N)$
+ */
 
 struct pnode {
 	int sz, prior;
@@ -142,6 +142,16 @@ int climber(node t, bool add)
 	return res;
 }
 
+void printer(node t, lli add = 0)
+{
+	if(t)
+	{
+		printer(t->L, add);
+		cerr << t->v << " " << t->tr << " " << t->vval << " " << t->prior << " " << add+get_sz(t->L) << "\n";
+		printer(t->R, add+get_sz(t->L)+1);
+	}
+}
+
 void fix(node& t)
 {
 	if(t)
@@ -150,5 +160,8 @@ void fix(node& t)
 	}
 }
 
-// Call srand(time(NULL)) before use.
-// Call fix(root) after each qry/upd.
+// Initialise
+srand(time(NULL));
+
+// Call after each qry/upd, root is overall root of running treap.
+fix(root);

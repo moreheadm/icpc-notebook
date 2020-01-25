@@ -1,9 +1,11 @@
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <set>
-#include <unordered_map>
-using namespace std;
+/**
+ * Author: Nalin Bhardwaj
+ * Date: 2020-01-25
+ * License: CC0
+ * Source: Folklore/self
+ * Description: Persistent segment tree, implemented using pointers.
+ * Time: Split and merge are $O(\log N)$
+ */
 
 struct pnode {
 	int res = 0;
@@ -52,40 +54,12 @@ int qry(node rootL, node rootR, int L, int R, int k)
 	}
 }
 
-int main(void)
+// Initialise
+dummy = new pnode();
+dummy->L = dummy->R = dummy;
+
+for(int i = 0;i < n;i++)
 {
-	dummy = new pnode();
-	dummy->L = dummy->R = dummy;
-	int n, m, x, y, k;
-	scanf("%d%d", &n, &m);
-
-	set<int> compressor;
-	unordered_map<int, int> mp;
-	for(int i = 0;i < n;i++)
-	{
-		scanf("%d", &A[i]);
-		compressor.insert(A[i]);
-	}
-
-	int v = 1;
-	for(auto it: compressor) mp[it] = v++;
-
-	for(int i = 0;i < n;i++)
-	{
-		pm[mp[A[i]]] = A[i];
-		A[i] = mp[A[i]];
-	}
-
-	for(int i = 0;i < n;i++)
-	{
-		if(i) root[i] = upd(root[i-1], 0, v, A[i]);
-		else root[i] = upd(dummy, 0, v, A[i]);
-	}
-
-	while(m--)
-	{
-		scanf("%d%d%d", &x, &y, &k)
-		x--; y--;
-		printf("%d\n", pm[min(v-1, qry((((x-1)<0)?dummy:root[x-1]), root[y], 0, v, k))]);
-	}
+	if(i) root[i] = upd(root[i-1], 0, v, A[i]);
+	else root[i] = upd(dummy, 0, v, A[i]);
 }
