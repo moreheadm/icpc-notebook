@@ -12,7 +12,8 @@
 \usepackage{tocloft}                    % Custom Table of Contents
 \usepackage{titletoc}                   % Design control over Table of Contents
 \usepackage{ifthen}                     % To enable some conditional programming in LaTeX
-\usepackage{courier}                    % To get bold typewriter typeface
+%\usepackage{courier}                    % To get bold typewriter typeface
+\usepackage{sourcecodepro}
 \usepackage{graphicx}                   % To rotate page numbers
 \usepackage{fix-cm}                     % Large font sizes
 \usepackage{paralist}                   % For compact enumerations
@@ -41,10 +42,10 @@
 }
 
 \newcommand{\enablecolors}{
-	\lstset{basicstyle=\scriptsize\ttfamily\color{mygreen}}
-	\lstset{commentstyle=\color{darkgray}\normalfont\itshape}
-	\lstset{keywordstyle=\color{myblue}}
-	\lstset{identifierstyle=\color{black}}
+	\lstset{basicstyle=\scriptsize\ttfamily\bfseries\color{mygreen}}
+  \lstset{commentstyle=\color{darkgray}\slshape}
+	\lstset{keywordstyle=\bfseries\color{myblue}}
+	\lstset{identifierstyle=\normalfont\color{black}}
 }
 
 % Some default config
