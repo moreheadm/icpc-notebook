@@ -1,0 +1,14 @@
+set nu
+inoremap jk <Esc>
+vnoremap fd <Esc>
+filetype indent on
+filetype plugin on
+syntax enable
+set ts=4
+set sts=4
+set sw=4
+set et
+set sc
+set noml
+set sm
+set bs=indent,eol,start

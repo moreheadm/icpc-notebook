@@ -1,0 +1,6 @@
+function mcc() { V="$1"; shift; g++ -std=c++11 -Werror \
+    -Wall -Wextra "$@" -o "$V" "$V.cpp"; }
+# map caps to escape
+setxkbmap -option caps:escape
+# reset keyboard mappings
+setxkbmap -layout us -option
