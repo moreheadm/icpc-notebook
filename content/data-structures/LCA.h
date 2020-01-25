@@ -2,7 +2,7 @@
  * Author: Nalin Bhardwaj
  * Date: 2020-01-25
  * License: CC0
- * Source: Self
+ * Source: Self - https://codeforces.com/contest/827/submission/29309549
  * Description: LCA table with offline update support.
  * Time: Updates are $O(N \log N)$ total.
  */

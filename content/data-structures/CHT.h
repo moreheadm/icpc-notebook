@@ -2,7 +2,7 @@
  * Author: Nalin Bhardwaj
  * Date: 2020-01-25
  * License: CC0
- * Source: Folklore/self
+ * Source: Folklore/self - https://codeforces.com/contest/319/submission/52604561
  * Description: Convex hull trick for finding max f(x) given a number of lines f(x) = mx+c.
  * During inserting, m should be in increasing order.
  * Time: Query is $O(\log N)$. Insert is $O(1)$ amortized

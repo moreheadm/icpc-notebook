@@ -4,7 +4,7 @@
  * License: CC0
  * Source: Folklore/self
  * Description: Persistent segment tree, implemented using pointers.
- * Time: Split and merge are $O(\log N)$
+ * Time: Query and Update are $O(\log N)$
  */
 
 struct pnode {

@@ -2,7 +2,7 @@
  * Author: Nalin Bhardwaj
  * Date: 2020-01-25
  * License: CC0
- * Source: Folklore/self
+ * Source: Folklore/self - https://www.codechef.com/viewsolution/11276291
  * Description: Treap with lazy propogation and climbing for reverse lookup.
  * Time: Split and merge are $O(\log N)$
  */

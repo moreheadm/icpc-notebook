@@ -2,7 +2,7 @@
  * Author: Nalin Bhardwaj
  * Date: 2020-01-25
  * License: CC0
- * Source: Folklore/self
+ * Source: Folklore/self - https://codeforces.com/contest/696/submission/69540194
  * Description: HLD implementation that also supports subtree updates/queries.
  * Time: Path query is $O(\log^2 n)$
  */
