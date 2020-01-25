@@ -12,7 +12,7 @@
 	\kactlimport{PushRelabel.h}
 	\kactlimport{MinCostMaxFlow.h}
 	\kactlimport{EdmondsKarp.h}
-	% \kactlimport{Dinic.h}
+	\kactlimport{Dinic.h}
 	\kactlimport{MinCut.h}
 	\kactlimport{GlobalMinCut.h}
 
@@ -21,6 +21,7 @@
 	\kactlimport{DFSMatching.h}
 	\kactlimport{MinimumVertexCover.h}
 	\kactlimport{WeightedMatching.h}
+	\kactlimport{GaleShapley.h}
 	\kactlimport{GeneralMatching.h}
 
 \section{DFS algorithms}
@@ -56,3 +57,24 @@
 		% Test: stress-tests/graph/matrix-tree.cpp
 		A simple graph with node degrees $d_1 \ge \dots \ge d_n$ exists iff $d_1 + \dots + d_n$ is even and for every $k = 1\dots n$,
 		\[ \sum _{i=1}^{k}d_{i}\leq k(k-1)+\sum _{i=k+1}^{n}\min(d_{i},k). \]
+
+	\subsection{Konig's theorem}
+  In any bipartite graph, the number of edges in a maximum mathing equals the number of vertices in a minimum vertex cover. To exhibit the vertex cover:\\
+  \begin{enumerate}
+  \item
+  Find a maximum matching.
+  \item
+  Change each edge {\bf used} in the matching into a directed edge from {\bf right to left}.
+  \item
+  Change each edge {\bf not used} in the matching into a directed edge from {\bf left to right}.
+  \item
+  Compute the set $T$ of all vertices reachable from unmatched vertices on the left (including themselves).
+  \item
+  The vertex cover consists of all vertices on the right that are {\bf in} $T$, and all vertices on the left
+  that are {\bf not in} $T$.
+  \end{enumerate}
+
+	\subsection{Minumum Edge cover}
+  If a minimum edge cover contains $C$ edges, and a maximum matching contains $M$ edges, then $C+M = |V|$. To obtain
+  the edge cover, start with a maximum matching, and then, for every vertex not matched, just select some edge
+  incident upon it and add it to the edge set.
