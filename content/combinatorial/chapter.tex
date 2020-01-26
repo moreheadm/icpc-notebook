@@ -97,3 +97,31 @@
 			\item ways a convex polygon with $n+2$ sides can be cut into triangles by connecting vertices with straight lines.
 			\item permutations of $[n]$ with no 3-term increasing subseq.
 		\end{itemize}
+ \section{General purpose theorems}
+    \subsection{Identities}
+    Vandermonde Convolution: $\binom{m+n}{r} = \sum_{k=0}^r\binom{m}{k}\cdot\binom{r}{n-k}$.\\
+    Hockey Stick: $\binom{n+1}{r+1} = \sum_{i=r}^n\binom{i}{r}$.\\
+
+    \subsection{Cycle Lemma}
+    Any sequence of $m X$'s and $n Y$'s, where $m > n$ has exactly $m -n$ cyclic permutations which are dominating,
+    and $m - kn$ which are $k$-dominating. To find them, arrange sequence in a circle and repeatedly remove
+    adjacent pairs $XY$. The remaining $X$'s were each the start of a dominating permutation.
+
+    \subsection{Sprague Grundy theorem}
+    Every impartial game is equivalent to a nimber. Nimbers are de-fined inductively as $*0 = \{\}, *1 = {*0}, *2 = {*0, *1}, *(n+1) = *n \cup {n}$, and
+    corresponds to a heap of size $n$. The formula for adding positions is $S + S' = {S + s' | s' \in S'} \cup {s + S' | s \in S}$.\\
+    $a + b = a \oplus b + 2(a\&b)$.\\
+    Define minimum exclusion $M : \phi(N) \rightarrow N$ by $M(S) = $ the least non-negative integer not in S.
+    Let $C = (M(A) \oplus B) \cup (M(B) \oplus A)$. Then $M(C) = M(A) \oplus M(B)$.
+    Define $SG(S) = M (\{SG(s) | s \in S\})$.
+    $SG(Nim_k) = k$ by strong induction. Game is losing iff $SG(S) = 0$. Theorem: $SG(A + B) = SG(A) \oplus SG(B)$.
+
+    \subsection{Partisan Game}
+    Can define the negative of a game by interchanging $L$ and $R$'s possible moves.
+    Define $G = 0$ if first player loses. $G = H$ if $G + (-H) = 0$.
+    A cold game is one which moving only hurts players. In this case we never have G fuzzy 0, so G is
+    representable as an integer, thus calculable by DP.
+
+    \subsection{Matrices for operators}
+    Matrices for xor, and, and or are: $\frac{1}{\sqrt{2} \begin{bmatrix} 1 & 1 \\ 1 & -1\end{bmatrix}, \begin{bmatrix} 0 & 1 \\ 1 & 1\end{bmatrix}$
+    with inverses: $\begin{bmatrix} -1 & 1 \\ 1 & 0\end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 1 & 0\end{bmatrix}$.
