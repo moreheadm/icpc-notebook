@@ -21,6 +21,16 @@
 		 If $f(n)$ counts ``configurations'' (of some sort) of length $n$, we can ignore rotational symmetry using $G = \mathbb Z_n$ to get
 		 \[ g(n) = \frac 1 n \sum_{k=0}^{n-1}{f(\text{gcd}(n, k))} = \frac 1 n \sum_{k|n}{f(k)\phi(n/k)}. \]
 
+     The number of orbits of a set $X$ under the group action $G$ equals the average number of elements of $X$ fixed by the elements of $G$.\\
+     Here’s an example. Consider a square of $2n \times 2n$ cells. How many ways are there to color it into $X$ colors, up to rotations and/or reflections?
+     Here, the group has only $8$ elements (rotations by $0, 90, 180, 270$ degrees, reflections over two diagonals, over a vertical line and over a horizontal line).
+     Every coloring stays itself after rotating by $0$ degrees, so that rotation has $X^{4n^2}$ fixed points.
+     Rotation by 180 degrees and reflections over a horizonal/vertical line split all cells in pairs that must be of the same color
+     for a coloring to be unaffected by such rotation/reflection, thus there exist $X^{2n^2}$ such colorings for each of them.
+     Rotations by $90$ and $270$ degrees split cells in groups of four, thus yielding $X^n$ fixed colorings.
+     Reflections over diagonals split cells into $2n$ groups of $1$ (the diagonal itself) and $2n^2-n$  groups of $2$ (all remaining cells),
+     thus yielding $X^{2n^2-n+2n} = X^{2n^2+n}$ affected colorings. So, the answer is: $\frac{X^{4n^2} + 3X^{2n^2} + 2X^{n^2} + 2X^{2n^+n}}{8}$.
+
 \section{Partitions and subsets}
 	\subsection{Partition function}
 		Number of ways of writing $n$ as a sum of positive integers, disregarding the order of the summands.
@@ -97,7 +107,7 @@
 			\item ways a convex polygon with $n+2$ sides can be cut into triangles by connecting vertices with straight lines.
 			\item permutations of $[n]$ with no 3-term increasing subseq.
 		\end{itemize}
- \section{General purpose theorems}
+ \section{General purpose theorems - 1}
     \subsection{Identities}
     Vandermonde Convolution: $\binom{m+n}{r} = \sum_{k=0}^r\binom{m}{k}\cdot\binom{r}{n-k}$.\\
     Hockey Stick: $\binom{n+1}{r+1} = \sum_{i=r}^n\binom{i}{r}$.\\
@@ -123,5 +133,52 @@
     representable as an integer, thus calculable by DP.
 
     \subsection{Matrices for operators}
-    Matrices for xor, and, and or are: $\frac{1}{\sqrt{2} \begin{bmatrix} 1 & 1 \\ 1 & -1\end{bmatrix}, \begin{bmatrix} 0 & 1 \\ 1 & 1\end{bmatrix}$
+    Matrices for xor, and, and or are: $\frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1\end{bmatrix}, \begin{bmatrix} 0 & 1 \\ 1 & 1\end{bmatrix}$
     with inverses: $\begin{bmatrix} -1 & 1 \\ 1 & 0\end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 1 & 0\end{bmatrix}$.
+    
+ \section{General purpose theorems - 2}
+
+    \subsection{Prufer sequences}
+    The set of labeled trees on $n$ vertices corresponds bijectively to the set of Prufer sequences of length $n-2$.
+    To convert a tree into a Prufer sequence, repeatedly remove the leaf with the smallest label, and write down its neighbor.
+    To convert sequence to tree, first set the degree of each vertex to $n_v + 1$, where $n_v$ is the number of times
+    the vertex appears in the sequence. Then for each $i$, find lowest $j$ with degree $1$, add edge $a_i, j$, and decrease
+    the degrees of $a_i$ and $j$ by $1$. After this, two nodes of degree 1 remain - connect them.\\
+    This can be used to calculate number of labeled trees in a complete bipartite graph - $l^{r-1}\cdot r^{l-1}$.
+
+    \subsection{Tournament Graphs}
+    There exists a Hamiltonian path on any tournament graphs - use induction to find. Cycle if strongly connected. TFAE:
+    \begin{itemize}
+      \item
+      $T$ is transitive.
+      \item
+      $T$ is strict total ordering.
+      \item
+      $T$ is acyclic.
+      \item
+      $T$ has no cycle of length $3$.
+      \item
+      The outdegrees are $\{0, 1, \cdots, n-1\}$.
+      \item
+      $T$ has exactly one Hamiltonian path.
+    \end{itemize}
+    Landau's theorem: A sequence of numbers is called a score sequence if for each subset $S$, sum of 
+    numbers in $S$ is at least $\binom{|S|}{2}$ and sum of all numbers is $\binom{n}{2}$.\\
+    This score sequence represents the outdegrees of a vertex in a tournament graph.
+
+    \subsection{Dilworth's / Hall's / Mirsky's theorem}
+    Maximum antichain has same size as minimum chain decomposition.\\
+    Maximum chain size has same size as minimum antichain decomposition.\\
+    To compute size, model as bipartite graph with two copies of vertices - $v_in$ and $v_out$.
+    Distinct representatives can be chosen for a family of sets $S$ iff every subfamily $W$ of $S$ has at least $|W|$
+    elements in their union. E.g. Left side of bipartite graph can be fully matched iff each subset has sufficient ”degree”.
+
+    \subsection{Laplacian Matrix and Kirchoff’s Theorem}
+
+    Laplacian matrix is defined as $L = D - A$, where $D$ is the degree matrix (diagonal), and $A$ the adjacency matrix.\\
+    Kirchoff’s Theorem states that the number of spanning trees in a graph is any cofactor of the Laplacian.\\
+    To calculate that, remove the first row and column and calculate the determinant of the remaining matrix.
+
+
+
+

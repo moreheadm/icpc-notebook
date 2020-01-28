@@ -4,12 +4,12 @@
  * License: CC0
  * Description: Chinese Remainder Theorem.
  *
- * \texttt{crt(a, m, b, n)} computes $x$ such that $x\equiv a \pmod m$, $x\equiv b \pmod n$.
+ * $\textit{crt(a, m, b, n)}$ computes $x$ such that $x\equiv a \pmod m$, $x\equiv b \pmod n$.
  * If $|a| < m$ and $|b| < n$, $x$ will obey $0 \le x < \text{lcm}(m, n)$.
  * Assumes $mn < 2^{62}$.
- * \textttt{crt(x, a)} computes $z$ such that
+ * $\textit{crt(x, a)}$ computes $z$ such that
  * $z \pmod x_i = a_i \forall i$. Note that the solution is
- * unique modulo $M = \text{lcm}(x_i)$ . Return (z, M). Note that we do not require the a_i
+ * unique modulo $M = \text{lcm}(x_i)$ . Return (z, M). Note that we do not require the $a_i$
  * to be relatively prime.
  *
  * Status: Works
