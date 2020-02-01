@@ -3,11 +3,13 @@
  * Date: 2020-01-25
  * License: CC0
  * Source: Tutorial - https://cp-algorithms.com/geometry/convex_hull_trick.html
- * Description: Add line y = mx + c using add_line({m, c}). Query for point x using query(x).
- * For max instead of min, change lines marked with ###. P > largest point at which query occurs
- * Coordinate compress if too large point values
+ * Description: Add line $y = mx + c$ using add\_line$(\{m, c\})$. Query for point x using query(x).
+ * For max instead of min, change lines marked with \#\#\#. P $>$ largest point at which query occurs
+ * Coordinate compress if too large point values.
  * Time: O(\log N)
  */
+#pragma once
+
 typedef long long ll;
 
 const ll maxn = ll(1e5)+5, inf = ll(1e18)+5;
