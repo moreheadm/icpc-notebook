@@ -9,6 +9,7 @@ If a unique intersection point of the lines going through s1,e1 and s2,e2 exists
 If no intersection point exists \{0, (0,0)\} is returned and if infinitely many exists \{-1, (0,0)\} is returned.
 The wrong position will be returned if P is Point<ll> and the intersection point does not have integer coordinates.
 Products of three coordinates are used in intermediate steps so watch out for overflow if using int or ll.
+Does not always return true if the intersection is at the boundary point(s).
 \end{minipage}
 \begin{minipage}{15mm}
 \includegraphics[width=\textwidth]{content/geometry/lineIntersection}

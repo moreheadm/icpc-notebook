@@ -1,9 +1,9 @@
 \chapter{Graph}
 
-\section{Fundamentals}
-	\kactlimport{BellmanFord.h}
-	\kactlimport{FloydWarshall.h}
-	\kactlimport{TopoSort.h}
+%\section{Fundamentals}
+%	\kactlimport{BellmanFord.h}
+%	\kactlimport{FloydWarshall.h}
+% \kactlimport{TopoSort.h}
 
 \section{Euler walk}
 	\kactlimport{EulerWalk.h}
@@ -13,7 +13,7 @@
 	\kactlimport{MinCostMaxFlow.h}
 	\kactlimport{EdmondsKarp.h}
 	\kactlimport{Dinic.h}
-	\kactlimport{MinCut.h}
+%	\kactlimport{MinCut.h}
 	\kactlimport{GlobalMinCut.h}
 
 \section{Matching}
@@ -25,20 +25,21 @@
 	\kactlimport{GeneralMatching.h}
 
 \section{DFS algorithms}
-	\kactlimport{SCC.h}
-	\kactlimport{BiconnectedComponents.h}
+	%\kactlimport{SCC.h}
+	%\kactlimport{BiconnectedComponents.h}
+	\kactlimport{ArticulationPointAndBridges.h}
 	\kactlimport{2sat.h}
 
 \section{Heuristics}
 	\kactlimport{MaximalCliques.h}
 	\kactlimport{MaximumClique.h}
-	\kactlimport{MaximumIndependentSet.h}
+	%\kactlimport{MaximumIndependentSet.h}
 
 \section{Trees}
-	\kactlimport{TreePower.h}
-	\kactlimport{LCA.h}
+	%\kactlimport{TreePower.h}
+	%\kactlimport{LCA.h}
 	\kactlimport{CompressTree.h}
-	\kactlimport{HLD.h}
+	%\kactlimport{HLD.h}
 	\kactlimport{LinkCutTree.h}
 	\kactlimport{DirectedMST.h}
 
@@ -78,3 +79,7 @@
   If a minimum edge cover contains $C$ edges, and a maximum matching contains $M$ edges, then $C+M = |V|$. To obtain
   the edge cover, start with a maximum matching, and then, for every vertex not matched, just select some edge
   incident upon it and add it to the edge set.
+
+	\subsection{Maximum Independent set}
+  To obtain a maximum independent set of a graph, find a max
+  clique of the complement. If the graph is bipartite, see MinimumVertexCover.

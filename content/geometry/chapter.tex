@@ -1,10 +1,20 @@
 \chapter{Geometry}
 
+\section{Voronoi - Delanauy dual}
+
+\centerline{\includegraphics[width=42mm]{content/geometry/Delaunay}}
+The Delaunay triangulation with all the circumcircles and their centers (in red).
+
+\centerline{\includegraphics[width=42mm]{content/geometry/Voronoi}}
+Connecting the centers of the circumcircles produces the Voronoi diagram (in red).
+
+Green highlighted points show that circumcenter can be outside triangle.
+Yellow highlighted points show that Voronoi cell edge is present only triangles have shared edge, \textit{not} shared vertex.
+
 \section{Geometric primitives}
 	\kactlimport{Point.h}
 	\kactlimport{lineDistance.h}
 	\kactlimport{SegmentDistance.h}
-	\columnbreak
 	\kactlimport{SegmentIntersection.h}
 	\kactlimport{lineIntersection.h}
 	\kactlimport{sideOf.h}
@@ -34,7 +44,7 @@
 	\kactlimport{LineHullIntersection.h}
 
 \section{Misc. Point Set Problems}
-	\kactlimport{ClosestPair.h}
+%	\kactlimport{ClosestPair.h}
 	\kactlimport{ManhattanMST.h}
 	\kactlimport{kdTree.h}
 	% \kactlimport{DelaunayTriangulation.h}

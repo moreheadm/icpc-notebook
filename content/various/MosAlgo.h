@@ -7,12 +7,6 @@
  * Time: O(N \sqrt{N} \log(N))
  */
 
-#include <iostream>
-#include <cstdio>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
 const int maxn = int(2e5)+5, inf = int(1e9)+5, block = 500;
 
 int A[maxn], BIT[maxn+5], ans[maxn], start[maxn], en[maxn], occ[maxn], cnt[maxn];
