@@ -23,26 +23,19 @@ struct cht {
 	lli sz = 0;
 	line st[maxn];
  
-	double intersect(line a, line b)
-	{
-		return double(a.c-b.c)/(b.m-a.m);
-	}
+	double intersect(line a, line b) { return double(a.c-b.c)/(b.m-a.m); }
  
-	void insert(line a)
-	{
-		while(sz > 1)
-		{
+	void insert(line a) {
+		while(sz > 1) {
 			if(intersect(st[sz-2], a) < intersect(st[sz-2], st[sz-1])) sz--;
 			else break;
 		}
 		st[sz++] = a;
 	}
  
-	lli qry(lli x)
-	{
+	lli qry(lli x) {
 		lli L = 0, R = sz-1;
-		while(L < R)
-		{
+		while(L < R) {
 			lli mid = (L+R)/2;
 			if(x < intersect(st[mid], st[mid+1])) R = mid;
 			else L = mid+1;
