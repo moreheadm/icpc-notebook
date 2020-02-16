@@ -194,7 +194,7 @@
 \setlength{\columnseprule}{0.5pt} % Multicol separation line with
 \setlength{\columnsep}{10pt} % Multicol separation margin
 \setcounter{tocdepth}{1} % Table of contents depth
-\setlength{\parskip}{5pt plus 0pt minus 5pt}
+%\setlength{\parskip}{1pt plus 0pt minus 0pt}
 
 \pdfsuppresswarningpagegroup=1
 
@@ -223,8 +223,10 @@
 	\ifthenelse{\boolean{appendixmode}}{}{
 		\ifnum \value{section} > 0
 			\addcontentsline{ptc}{subsection}{\texttt{#1}\hspace{0.2em}}
+			\addcontentsline{toc}{subsubsection}{\texttt{#1}}
 		\else
 			\addcontentsline{ptc}{section}{\texttt{#1}\hspace{0.2em}}
+			\addcontentsline{toc}{subsection}{\texttt{#1}}
 		\fi
 	}
 	\marks\hdrmark{#1}
