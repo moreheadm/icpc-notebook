@@ -17,22 +17,17 @@ vector<pair<int, int>> graph[maxn];
 inline int left(int node) { return (node<<1); }
 inline int right(int node) { return (node<<1)+1; }
 
-void upd(int idx, int v)
-{
-    while(idx < maxn)
-    {
+void upd(int idx, int v) {
+    while(idx < maxn) {
         BIT[idx] += v;
         idx += (idx&-idx);
     }
 }
 
-int qry()
-{
+int qry() {
     int idx = 0, b = 16, s = 0;
-    while(b >= 0)
-    {
-        if(BIT[idx+(1<<b)]+s == idx+(1<<b))
-        {
+    while(b >= 0) {
+        if(BIT[idx+(1<<b)]+s == idx+(1<<b)) {
             idx += (1<<b);
             s += BIT[idx];
         }
@@ -41,61 +36,52 @@ int qry()
     return idx;
 }
 
-void dfs0(int node, int par, int into)
-{
+void dfs0(int node, int par, int into) {
     A[node] = into, start[node] = int(dis.size());
     dis.push_back(node);
-    for(auto it: graph[node])
-    {
+    for(auto it: graph[node]) {
         if(it.first != par) dfs0(it.first, node, it.second);
     }
     en[node] = int(dis.size());
     dis.push_back(node);
 }
 
-inline int cmp(pair<pair<int, int>, int>& a, pair<pair<int, int>, int>& b)
-{
+inline int cmp(pair<pair<int, int>, int>& a, pair<pair<int, int>, int>& b) {
     if(a.first.first/block != b.first.first/block) return a.first.first < b.first.first;
     else if((a.first.first/block)%2) return a.first.second > b.first.second;
     else return a.first.second < b.first.second;
 }
 
-void rem(int v)
-{
+void rem(int v) {
     v++;
     cnt[v]--;
     if(cnt[v] == 0) upd(v, -1);
 }
 
-void add(int v)
-{
+void add(int v) {
     v++;
     cnt[v]++;
     if(cnt[v] == 1) upd(v, 1);
 }
 
-void act(int node)
-{
+void act(int node) {
     if(A[node] >= maxn) return;
     occ[node]++;
     if(occ[node] == 2) rem(A[node]);
     else add(A[node]);
 }
 
-void deact(int node)
-{
+void deact(int node) {
     if(A[node] >= maxn) return;
     occ[node]--;
     if(occ[node] == 1) add(A[node]);
     else rem(A[node]);
 }
 
-int main(void)
-{
+int main(void) {
     int n, q, u, v, x;
     scanf("%d%d", &n, &q);
-    for(int i = 1;i < n;i++)
-    {
+    for(int i = 1;i < n;i++) {
         scanf("%d%d%d", &u, &v, &x);
         u--, v--;
         graph[u].push_back({v, x}), graph[v].push_back({u, x});
@@ -106,8 +92,7 @@ int main(void)
     //for(auto it: dis) cout << it << " ";
     //cout << "\n";
 
-    for(int i = 0;i < q;i++)
-    {
+    for(int i = 0;i < q;i++) {
         scanf("%d%d", &u, &v);
         u--, v--;
         if(start[u] > start[v]) swap(u, v);
@@ -122,12 +107,10 @@ int main(void)
     int L = 0, R = 0;
     act(dis[0]);
 
-    for(int i = 0;i < q;i++)
-    {
+    for(int i = 0;i < q;i++) {
         int ql = Q[i].first.first, qr = Q[i].first.second;
 
-        if(ql <= qr)
-        {
+        if(ql <= qr) {
             while(R < qr) act(dis[++R]);
             while(L < ql) deact(dis[L++]);
             while(L > ql) act(dis[--L]);
