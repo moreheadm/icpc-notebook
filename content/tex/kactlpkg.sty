@@ -221,8 +221,10 @@
 	\ifthenelse{\boolean{appendixmode}}{}{
 		\ifnum \value{section} > 0
 			\addcontentsline{ptc}{subsection}{\texttt{#1}\hspace{0.2em}}
+			\addcontentsline{toc}{subsubsection}{\texttt{#1}}
 		\else
 			\addcontentsline{ptc}{section}{\texttt{#1}\hspace{0.2em}}
+			\addcontentsline{toc}{subsection}{\texttt{#1}}
 		\fi
 	}
 	\marks\hdrmark{#1}
