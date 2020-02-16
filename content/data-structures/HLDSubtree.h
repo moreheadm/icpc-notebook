@@ -6,13 +6,13 @@
  * Description: HLD implementation that also supports subtree updates/queries.
  * Time: Path query is $O(\log^2 n)$
  */
+#include "LCA.h"
 typedef long long int lli;
 
 const lli maxn = lli(1e5)+5, maxlog = 17, inf = lli(1e17)+5;
 
 lli n, totchain = 0, curst = 0, inchain[maxn], head[maxn], inst[maxn], H[maxn], T[maxn][maxlog+1], lz[4*maxn], start[maxn], en[maxn], sz[maxn], lookup[maxn], ptr[maxn];
-vector<lli> graph[maxn];
-vector<lli> girls[maxn];
+vector<lli> graph[maxn], girls[maxn];
 pair<lli, lli> st[4*maxn];
 
 inline lli left(lli node) { return (node<<1); }
@@ -33,10 +33,8 @@ void build(lli node, lli L, lli R) {
 
 void shift(lli node, lli L, lli R) {
 	if(lz[node] && L != R) {
-		lz[left(node)] += lz[node];
-		lz[right(node)] += lz[node];
-		st[left(node)].first += lz[node];
-		st[right(node)].first += lz[node];
+		lz[left(node)] += lz[node]; lz[right(node)] += lz[node];
+		st[left(node)].first += lz[node]; st[right(node)].first += lz[node];
 	}
 	lz[node] = 0;
 }
@@ -44,8 +42,7 @@ void shift(lli node, lli L, lli R) {
 void upd(lli node, lli L, lli R, lli a, lli b, lli v) {
 	if(a > R || b < L) return;
 	else if(a <= L && R <= b) {
-		st[node].first += v;
-		lz[node] += v;
+		st[node].first += v; lz[node] += v;
 	}
 	else {
 		shift(node, L, R);
@@ -64,29 +61,8 @@ pair<lli, lli> qry(lli node, lli L, lli R, lli a, lli b) {
 	}
 }
 
-void init() {
-	for(lli j = 1;j <= maxlog;j++) {
-		for(lli i = 0;i < n;i++) {
-			if(T[i][j-1] != -1) T[i][j] = T[T[i][j-1]][j-1];
-		}
-	}
-}
-
-lli LCA(lli x, lli y) {
-	if(H[x] > H[y]) swap(x, y);
-	for(lli i = maxlog;i >= 0;i--) {
-		if(H[y]-(1<<i) >= H[x]) y = T[y][i];
-	}
-	if(x == y) return x;
-	for(lli i = maxlog;i >= 0;i--) {
-		if(T[x][i] != T[y][i]) x = T[x][i], y = T[y][i];
-	}
-	return T[x][0];
-}
-
 // v MUST be an ancestor of u
-pair<lli, lli> pathqry(lli node, lli anc)
-{
+pair<lli, lli> pathqry(lli node, lli anc) {
 	lli cur = node;
 	pair<lli, lli> res = {inf, -1};
 	while(inchain[cur] != inchain[anc])
@@ -111,9 +87,7 @@ void dfs0(lli node, lli par, lli ht) {
 void dfs1(lli node, lli par, lli chain) {
 	inchain[node] = chain;
 	if(head[chain] == -1) head[chain] = node;
-	inst[node] = curst++;
-	lookup[curst-1] = node;
-	start[node] = curst-1;
+	inst[node] = curst++; lookup[curst-1] = node; start[node] = curst-1;
 
 	pair<lli, lli> largest = {-1, -1};
 	for(auto it: graph[node]) {
@@ -128,18 +102,8 @@ void dfs1(lli node, lli par, lli chain) {
 	en[node] = curst-1;
 }
 
-// Add k to subtree(node)
-upd(1, 0, n-1, start[node], en[node], k);
-
-// initialisation before input
+// initialisation before input (also LCA.h)
 for(lli i = 0;i < maxn;i++) head[i] = -1;
-for(lli i = 0;i < maxn;i++) {
-	for(lli j = 0;j <= maxlog;j++) T[i][j] = -1;
-}
 
-// initialisation after input
-dfs0(0, -1, 0);
-init();
-totchain = 1;
-dfs1(0, -1, 0);
-build(1, 0, curst-1);
+// initialisation after input (also LCA.h)
+dfs0(0, -1, 0); totchain = 1; dfs1(0, -1, 0); build(1, 0, curst-1);

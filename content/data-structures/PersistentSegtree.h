@@ -12,9 +12,7 @@ struct pnode {
 	pnode *L, *R;
 
 	pnode(int v = 0, pnode* l = NULL, pnode* r = NULL) {
-		res = v;
-		L = l;
-		R = r;
+		res = v; L = l; R = r;
 	}
 };
 

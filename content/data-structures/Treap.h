@@ -8,8 +8,7 @@
  */
 
 struct pnode {
-	int sz, prior;
-	int v, lz, vval = 0;
+	int sz, prior, v, lz, vval = 0;
 	pnode *L, *R, *P;
 	pnode(pnode* l = NULL, pnode* r = NULL, int val = 0) {
 		L = l, R = r, P = NULL, v = val, sz = 1, lz = 0, prior = rand();
@@ -19,9 +18,7 @@ struct pnode {
 typedef pnode* node;
 
 int get_sz(node t) { return t?t->sz:0; }
-
 int get_v(node t) { return t?t->v:0; }
-
 int get_lz(node t) { return t?t->lz:0; }
 
 void upd_P(node& t) {
@@ -53,8 +50,7 @@ void upd_v(node& t) {
 }
 
 void split(node t, node& l, node& r, int key, int add) {
-	upd_lz(t); upd_lz(l); upd_lz(r);
-	upd_P(t); upd_P(l); upd_P(r); 
+	upd_lz(t); upd_lz(l); upd_lz(r); upd_P(t); upd_P(l); upd_P(r); 
 	if(!t) {
 		l = r = NULL;
 		return;
@@ -68,15 +64,11 @@ void split(node t, node& l, node& r, int key, int add) {
 		split(t->L, l, t->L, key, add);
 		r = t;
 	}
-	upd_sz(t); upd_v(t);
-	upd_sz(l); upd_v(l);
-	upd_sz(r); upd_v(r);
-	upd_P(t); upd_P(l); upd_P(r);
+	upd_sz(t); upd_v(t); upd_sz(l); upd_v(l); upd_sz(r); upd_v(r); upd_P(t); upd_P(l); upd_P(r);
 }
 
 void merge(node& t, node l, node r) {
-	upd_lz(l); upd_lz(r); upd_lz(t);
-	upd_P(l); upd_P(r); upd_P(t);
+	upd_lz(l); upd_lz(r); upd_lz(t); upd_P(l); upd_P(r); upd_P(t);
 	if(!l || !r) {
 		t = l?l:r;
 		return;
@@ -89,10 +81,7 @@ void merge(node& t, node l, node r) {
 		merge(r->L, l, r->L);
 		t = r;
 	}
-	upd_sz(l); upd_v(l);
-	upd_sz(r); upd_v(r);
-	upd_sz(t); upd_v(t);
-	upd_P(l); upd_P(r); upd_P(t);
+	upd_sz(l); upd_v(l); upd_sz(r); upd_v(r); upd_sz(t); upd_v(t); upd_P(l); upd_P(r); upd_P(t);
 }
 
 int climber(node t, bool add) {
@@ -104,7 +93,6 @@ int climber(node t, bool add) {
 		}
 		else res += climber(t->P, 0);
 	}
-
 	return res;
 }
 

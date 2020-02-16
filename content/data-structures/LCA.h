@@ -51,7 +51,6 @@ void onit()
 int qry(int x, int y)
 {
 	if(H[x] > H[y]) swap(x, y);
- 
 	int res = -inf;
 	for(int i = maxlog;i >= 0;i--) {
 		if(H[y]-(1<<i) >= H[x]) {
@@ -59,9 +58,7 @@ int qry(int x, int y)
 			y = T[y][i];
 		}
 	}
- 
 	if(x == y) return res;
- 
 	for(int i = maxlog;i >= 0;i--) {
 		if(T[x][i] != T[y][i]) {
 			res = max(res, TT[x][i]);
@@ -77,16 +74,13 @@ int qry(int x, int y)
 void upd(int x, int y, int c)
 {
 	if(H[x] > H[y]) swap(x, y);
- 
 	for(int i = maxlog;i >= 0;i--) {
 		if(H[y]-(1<<i) >= H[x]) {
 			F[y][i] = min(F[y][i], c);
 			y = T[y][i];
 		}
 	}
- 
 	if(x == y) return;
- 
 	for(int i = maxlog;i >= 0;i--) {
 		if(T[x][i] != T[y][i]) {
 			F[x][i] = min(F[x][i], c), F[y][i] = min(F[y][i], c);
