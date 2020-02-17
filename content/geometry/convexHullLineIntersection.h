@@ -9,7 +9,7 @@
 #pragma once
 double calc(point a, point b){
   double k=atan2(b.y-a.y , b.x-a.x); if (k<0) k+=2*pi;return k;
-}//= the convex must compare y, then x£¬a[0] is the lower-right point
+}//= the convex must compare y, then x. a[0] is the lower-right point
 //======= three is no 3 points in line. a[] is convex 0~n-1
 void prepare(point a[] ,double w[],int &n) {
   int i; rep(i,n) a[i+n]=a[i];
