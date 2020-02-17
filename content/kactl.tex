@@ -7,13 +7,15 @@
 % \contest{ACM-ICPC World Finals 2017}{May 24, 2017}
 \contest{\ }{\today}
 % \enablecolors
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{fancy}}} 
 
 \begin{document}
 	\maketeampage
 	% Small KACTL header on the first page:
 	% \maketitle{``One Last Time'' Edition}{\today}
-	\begin{multicols*}{3}
+    \newpage
 	\thispagestyle{fancy}
+	\begin{multicols*}{3}
 	% Table of contents, without subsections:
 	\setcounter{tocdepth}{5}
 	\tableofcontents
